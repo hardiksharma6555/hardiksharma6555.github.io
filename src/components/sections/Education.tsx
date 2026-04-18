@@ -34,26 +34,26 @@ export function Education() {
                 {/* Dot */}
                 <div className={`absolute left-4 top-2 w-4 h-4 rounded-full border-2 -translate-x-1/2 ${
                   edu.current
-                    ? 'bg-blue-500 border-blue-400 shadow-lg shadow-blue-500/40'
-                    : 'bg-slate-700 border-slate-500'
+                    ? 'bg-blue-500 border-blue-400 shadow-lg shadow-blue-500/40 animate-pulse'
+                    : 'bg-muted border-border'
                 }`} />
 
-                <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-6 hover:border-blue-500/30 transition-all">
+                <div className="bg-card border border-border rounded-xl p-6 hover:border-primary/30 transition-all">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                     <div>
-                      <h3 className="text-white font-semibold text-lg">{edu.institution}</h3>
-                      <p className="text-slate-400 text-sm">{edu.location}</p>
+                      <h3 className="text-foreground font-semibold text-lg">{edu.institution}</h3>
+                      <p className="text-muted-foreground text-sm">{edu.location}</p>
                     </div>
                     <span className={`text-xs font-medium px-2.5 py-1 rounded-full whitespace-nowrap ${
                       edu.current
-                        ? 'bg-blue-600/20 text-blue-300 border border-blue-600/30'
-                        : 'bg-slate-700/50 text-slate-400 border border-slate-600/30'
+                        ? 'bg-blue-600/20 text-blue-600 dark:text-blue-300 border border-blue-600/30'
+                        : 'bg-muted text-muted-foreground border border-border'
                     }`}>
                       {edu.period}
                     </span>
                   </div>
-                  <p className="text-blue-300 font-medium text-sm mb-1">{edu.degree}</p>
-                  <p className="text-slate-500 text-sm">{edu.department}</p>
+                  <p className="text-blue-600 dark:text-blue-300 font-medium text-sm mb-1">{edu.degree}</p>
+                  <p className="text-muted-foreground text-sm">{edu.department}</p>
                 </div>
               </div>
             ))}

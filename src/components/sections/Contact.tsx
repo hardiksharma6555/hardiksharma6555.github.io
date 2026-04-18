@@ -60,7 +60,7 @@ const contactLinks: {
 
 export function Contact() {
   return (
-    <SectionWrapper id="contact" className="bg-slate-900/50">
+    <SectionWrapper id="contact" className="bg-muted/30">
       <div className="container mx-auto max-w-2xl text-center">
         <SectionHeading
           title="Get in Touch"
@@ -74,14 +74,14 @@ export function Contact() {
               href={href}
               target={href.startsWith('http') ? '_blank' : undefined}
               rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className={`flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 text-slate-400 transition-all group ${color}`}
+              className={`flex items-center gap-4 p-4 rounded-xl bg-card border border-border text-muted-foreground transition-all group ${color}`}
             >
-              <div className="p-2 rounded-lg bg-slate-700/50 group-hover:bg-slate-700 transition-colors">
+              <div className="p-2 rounded-lg bg-muted group-hover:bg-muted/80 transition-colors">
                 <Icon className="h-5 w-5" />
               </div>
               <div className="text-left">
-                <p className="text-xs text-slate-500 mb-0.5">{label}</p>
-                <p className="text-sm font-medium text-slate-300 group-hover:text-current transition-colors">
+                <p className="text-xs text-muted-foreground/60 mb-0.5">{label}</p>
+                <p className="text-sm font-medium text-foreground group-hover:text-current transition-colors">
                   {value}
                 </p>
               </div>
@@ -89,7 +89,7 @@ export function Contact() {
           ))}
         </div>
 
-        <p className="mt-10 text-slate-500 text-sm">
+        <p className="mt-10 text-muted-foreground text-sm">
           Also find me on{' '}
           <a
             href="https://www.kaggle.com/iitm21f1006555"

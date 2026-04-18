@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/sections/Hero'
@@ -36,23 +37,25 @@ function ScrollProgress() {
 
 function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <ScrollProgress />
-      <Navigation />
-      <main>
-        <Hero />
-        <About />
-        <ResearchInterests />
-        <Skills />
-        <Education />
-        <Experience />
-        <Publications />
-        <Competitions />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <ScrollProgress />
+        <Navigation />
+        <main>
+          <Hero />
+          <About />
+          <ResearchInterests />
+          <Skills />
+          <Education />
+          <Experience />
+          <Publications />
+          <Competitions />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

@@ -63,7 +63,18 @@ export function HeroBlock({
           backgroundSize: '60px 60px',
         }}
       />
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Animated orb 1 */}
+      <motion.div
+        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none"
+      />
+      {/* Animated orb 2 */}
+      <motion.div
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.05, 0.1, 0.05] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-violet-600/10 rounded-full blur-3xl pointer-events-none"
+      />
 
       <div className="relative z-10 container mx-auto px-6 py-24">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
@@ -71,8 +82,16 @@ export function HeroBlock({
           {photoUrl && (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: [0, -12, 0]
+              }}
+              transition={{
+                opacity: { duration: 0.6 },
+                scale: { duration: 0.6 },
+                y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+              }}
               className="flex-shrink-0"
             >
               <div className="relative w-48 h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-blue-500/30 shadow-2xl shadow-blue-500/20 ring-1 ring-blue-400/20">
@@ -91,7 +110,9 @@ export function HeroBlock({
               <p className="text-blue-400 text-xs font-semibold tracking-widest uppercase mb-3">
                 Portfolio
               </p>
-              <h1 className="text-4xl lg:text-6xl font-bold text-white mb-3">{name}</h1>
+              <h1 className="text-4xl lg:text-6xl font-bold mb-3 bg-gradient-to-r from-white via-blue-200 to-blue-400 bg-clip-text text-transparent animate-gradient-x">
+                {name}
+              </h1>
               <h2 className="text-lg lg:text-xl text-slate-300 font-medium mb-6">{title}</h2>
             </motion.div>
 

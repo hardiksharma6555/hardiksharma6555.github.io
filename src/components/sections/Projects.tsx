@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { SectionWrapper, SectionHeading } from '@/components/SectionWrapper'
 
 const projects = [
@@ -36,10 +37,10 @@ const projects = [
 ]
 
 const categoryColors: Record<string, string> = {
-  'Computer Vision': 'bg-blue-600/10 text-blue-300 border-blue-600/20',
-  'Data Science': 'bg-green-600/10 text-green-300 border-green-600/20',
-  NLP: 'bg-violet-600/10 text-violet-300 border-violet-600/20',
-  'Web Dev': 'bg-amber-600/10 text-amber-300 border-amber-600/20',
+  'Computer Vision': 'bg-blue-600/10 text-blue-700 dark:text-blue-300 border-blue-600/20',
+  'Data Science': 'bg-green-600/10 text-green-700 dark:text-green-300 border-green-600/20',
+  NLP: 'bg-violet-600/10 text-violet-700 dark:text-violet-300 border-violet-600/20',
+  'Web Dev': 'bg-amber-600/10 text-amber-700 dark:text-amber-300 border-amber-600/20',
 }
 
 export function Projects() {
@@ -52,35 +53,37 @@ export function Projects() {
         />
         <div className="grid sm:grid-cols-2 gap-6">
           {projects.map((proj, i) => (
-            <div
+            <motion.div
               key={i}
-              className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-6 hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-1 transition-all group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="bg-card border border-border rounded-xl p-6 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all group"
             >
               <div className="flex items-center gap-2 mb-3">
-                <span className={`text-xs font-medium px-2 py-0.5 rounded border ${categoryColors[proj.category] || 'bg-slate-700/50 text-slate-400 border-slate-600/30'}`}>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded border ${categoryColors[proj.category] ?? 'bg-muted text-muted-foreground border-border'}`}>
                   {proj.category}
                 </span>
-                <span className="text-xs font-semibold text-blue-400 ml-auto">
+                <span className="text-xs font-semibold text-primary ml-auto">
                   {proj.metric}
                 </span>
               </div>
-              <h3 className="text-white font-semibold text-base mb-2 group-hover:text-blue-200 transition-colors">
+              <h3 className="text-foreground font-semibold text-base mb-2 group-hover:text-primary transition-colors">
                 {proj.title}
               </h3>
-              <p className="text-slate-400 text-sm leading-relaxed mb-4">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 {proj.description}
               </p>
               <div className="flex flex-wrap gap-1.5">
                 {proj.tech.map((t) => (
                   <span
                     key={t}
-                    className="px-2 py-0.5 rounded text-xs bg-slate-700/50 text-slate-400 border border-slate-600/30"
+                    className="px-2 py-0.5 rounded text-xs bg-muted text-muted-foreground border border-border"
                   >
                     {t}
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -6,28 +6,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
-  :root {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 13%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 224 76% 48%;
-    --radius: 0.5rem;
-  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -50,6 +28,15 @@
   html {
     scroll-behavior: smooth;
   }
+}
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 4s ease infinite;
 }
 
 /* Scroll progress indicator */
@@ -115,8 +102,30 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Dark blue slate theme — applied as default (html.dark) */
-:root,
+/* Light theme */
+:root {
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0.02 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.02 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.02 265);
+  --primary: oklch(0.55 0.22 263);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.005 265);
+  --secondary-foreground: oklch(0.25 0.02 265);
+  --muted: oklch(0.96 0.005 265);
+  --muted-foreground: oklch(0.45 0.02 265);
+  --accent: oklch(0.96 0.005 265);
+  --accent-foreground: oklch(0.25 0.02 265);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.005 265);
+  --input: oklch(0.9 0.005 265);
+  --ring: oklch(0.55 0.22 263);
+  --radius: 0.5rem;
+}
+
+/* Dark blue slate theme */
 .dark {
   --background: oklch(0.14 0.03 265);
   --foreground: oklch(0.975 0.003 265);
@@ -137,12 +146,4 @@
   --input: oklch(1 0 0 / 12%);
   --ring: oklch(0.6 0.2 263);
   --radius: 0.5rem;
-  --sidebar: oklch(0.17 0.03 265);
-  --sidebar-foreground: oklch(0.975 0.003 265);
-  --sidebar-primary: oklch(0.6 0.2 263);
-  --sidebar-primary-foreground: oklch(0.975 0.003 265);
-  --sidebar-accent: oklch(0.22 0.04 265);
-  --sidebar-accent-foreground: oklch(0.975 0.003 265);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.6 0.2 263);
 }

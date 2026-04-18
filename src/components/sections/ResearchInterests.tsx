@@ -31,8 +31,8 @@ export function ResearchInterests() {
               className={cn(
                 'px-4 py-2 rounded-full text-sm font-medium border transition-all hover:scale-105 cursor-default',
                 item.color === 'blue'
-                  ? 'bg-blue-600/10 text-blue-300 border-blue-600/20 hover:bg-blue-600/20 hover:border-blue-500/40'
-                  : 'bg-violet-600/10 text-violet-300 border-violet-600/20 hover:bg-violet-600/20 hover:border-violet-500/40'
+                  ? 'bg-blue-600/10 text-blue-700 dark:text-blue-300 border-blue-600/20 hover:bg-blue-600/20 hover:border-blue-500/40'
+                  : 'bg-violet-600/10 text-violet-700 dark:text-violet-300 border-violet-600/20 hover:bg-violet-600/20 hover:border-violet-500/40'
               )}
             >
               {item.label}

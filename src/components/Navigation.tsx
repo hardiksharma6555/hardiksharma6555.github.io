@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-scroll'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Sun, Moon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTheme } from '@/contexts/ThemeContext'
 
 const navLinks = [
   { label: 'About', to: 'about' },
@@ -19,6 +20,7 @@ const navLinks = [
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -34,7 +36,7 @@ export function Navigation() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled
-          ? 'bg-slate-900/95 backdrop-blur-md border-b border-white/5 shadow-xl shadow-black/20'
+          ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm'
           : 'bg-transparent'
       )}
     >
@@ -43,7 +45,10 @@ export function Navigation() {
           to="hero"
           smooth
           duration={500}
-          className="text-white font-bold text-lg cursor-pointer hover:text-blue-400 transition-colors"
+          className={cn(
+            'font-bold text-lg cursor-pointer transition-colors',
+            scrolled ? 'text-foreground hover:text-primary' : 'text-white hover:text-blue-200'
+          )}
         >
           HS
         </Link>
@@ -57,8 +62,13 @@ export function Navigation() {
               smooth
               duration={500}
               offset={-64}
-              className="text-slate-400 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 text-sm transition-all cursor-pointer"
-              activeClass="text-blue-400 bg-blue-500/10"
+              className={cn(
+                'px-3 py-2 rounded-lg text-sm transition-all cursor-pointer',
+                scrolled
+                  ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
+              )}
+              activeClass={scrolled ? 'text-primary bg-primary/10' : '!text-white bg-white/15'}
               spy
             >
               {link.label}
@@ -66,14 +76,33 @@ export function Navigation() {
           ))}
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="lg:hidden text-slate-400 hover:text-white p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className={cn(
+              'p-2 rounded-lg transition-all',
+              scrolled
+                ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                : 'text-white/80 hover:text-white hover:bg-white/10'
+            )}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            className={cn(
+              'lg:hidden p-2 transition-colors',
+              scrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/80 hover:text-white'
+            )}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -83,7 +112,7 @@ export function Navigation() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-slate-900/98 border-b border-white/5"
+            className="lg:hidden bg-background/98 border-b border-border"
           >
             <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
               {navLinks.map((link) => (
@@ -93,7 +122,7 @@ export function Navigation() {
                   smooth
                   duration={500}
                   offset={-64}
-                  className="text-slate-400 hover:text-white px-4 py-3 rounded-lg hover:bg-white/5 text-sm transition-all cursor-pointer"
+                  className="text-muted-foreground hover:text-foreground px-4 py-3 rounded-lg hover:bg-muted/50 text-sm transition-all cursor-pointer"
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}

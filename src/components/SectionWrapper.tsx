@@ -34,9 +34,9 @@ interface SectionHeadingProps {
 export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
   return (
     <div className="mb-12 text-center">
-      <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">{title}</h2>
+      <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-3">{title}</h2>
       {subtitle && (
-        <p className="text-slate-400 text-base max-w-2xl mx-auto">{subtitle}</p>
+        <p className="text-muted-foreground text-base max-w-2xl mx-auto">{subtitle}</p>
       )}
       <div className="mt-4 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-blue-600 to-violet-500" />
     </div>
