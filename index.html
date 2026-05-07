@@ -1,15 +1,112 @@
 <!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Hardik Sharma — PhD Researcher in Computer Vision, Deepfake Detection, and Multimodal AI" />
-    <title>Hardik Sharma | PhD Researcher | Computer Vision</title>
-    <script type="module" crossorigin src="/assets/index-DzLEOC2k.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-mNuHGaUs.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hardik Sharma — Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="src/styles.css?v=6" />
+
+<style>
+  html, body { margin: 0; padding: 0; background: #0a0a0b; }
+  #portfolio-mount { min-height: 100vh; }
+</style>
+</head>
+<body>
+
+<div id="portfolio-mount"></div>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Data + components -->
+<script src="src/data.js?v=6"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="src/portfolio.jsx?v=6"></script>
+
+<!-- Tweak defaults (persisted via host) -->
+<script>
+  window.TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accentColor": "#f5a524",
+    "theme": "dark"
+  }/*EDITMODE-END*/;
+</script>
+
+<!-- App bootstrap -->
+<script type="text/babel">
+  const { useEffect } = React;
+
+  function App() {
+    const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
+    const accent = t.accentColor || "#c2f53b";
+    const theme = t.theme || "dark";
+
+    useEffect(() => {
+      const root = document.querySelector(".portfolio-root");
+      if (!root) return;
+      root.setAttribute("data-theme", theme);
+      // Pick a fg-on-accent that contrasts: dark fg for light accents, white for dark
+      const c = accent.replace("#", "");
+      const r = parseInt(c.slice(0,2), 16);
+      const g = parseInt(c.slice(2,4), 16);
+      const b = parseInt(c.slice(4,6), 16);
+      const lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+      const accentFg = lum > 0.6 ? "#0a0a0b" : "#ffffff";
+      root.style.setProperty("--accent", accent);
+      root.style.setProperty("--accent-fg", accentFg);
+      root.style.setProperty("--accent-soft", accent + "1f");
+      root.style.setProperty("--accent-glow", accent + "66");
+    }, [accent, theme]);
+
+    return (
+      <>
+        <Portfolio />
+        <TweaksPanel title="Tweaks">
+          <TweakSection label="Theme">
+            <TweakRadio label="Mode" value={theme}
+              options={["dark", "light"]}
+              onChange={v => setTweak("theme", v)} />
+          </TweakSection>
+          <TweakSection label="Accent">
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              {[
+                { n: "Lime",     c: "#c2f53b" },
+                { n: "Amber",    c: "#f5a524" },
+                { n: "Cyan",     c: "#3df0d3" },
+                { n: "Magenta",  c: "#ff3aa8" },
+                { n: "Sky",      c: "#5eb8ff" },
+                { n: "Sun",      c: "#ffe14a" },
+              ].map(p => {
+                const active = accent.toLowerCase() === p.c.toLowerCase();
+                return (
+                  <button key={p.c}
+                    onClick={() => setTweak("accentColor", p.c)}
+                    style={{
+                      width: 32, height: 32, borderRadius: 8,
+                      border: active ? "2px solid #fff" : "1px solid rgba(255,255,255,0.2)",
+                      boxShadow: active ? `0 0 0 2px ${p.c}, 0 0 12px ${p.c}88` : "none",
+                      background: p.c, cursor: "pointer", padding: 0,
+                    }}
+                    title={p.n}
+                  />
+                );
+              })}
+            </div>
+            <TweakColor label="Custom" value={accent} onChange={v => setTweak("accentColor", v)} />
+          </TweakSection>
+        </TweaksPanel>
+      </>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("portfolio-mount")).render(<App />);
+</script>
+
+</body>
 </html>

@@ -1,73 +1,38 @@
-# React + TypeScript + Vite
+# hardiksharma6555.github.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site for **Hardik Sharma** — Ph.D. researcher in Computer Vision, Deepfake Detection, and Multimodal Forensics.
 
-Currently, two official plugins are available:
+Live at: https://hardiksharma6555.github.io/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- Plain static site (no build step)
+- React 18 + Babel-standalone served from CDN
+- Single-file `index.html` mounts a React app from `src/portfolio.jsx`
+- Content lives in `src/data.js` — edit this to update the site
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Layout
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+index.html              # GitHub Pages entry point
+.nojekyll               # disables Jekyll so all files (incl. _underscore) are served
+src/
+  portfolio.jsx         # React components
+  data.js               # ALL site content — edit here to update
+  styles.css            # styling
+tweaks-panel.jsx        # in-page theme/accent tweaks panel
+assets/
+  Hardik_Sharma_Resume.pdf
+  hardik_hero.png       # hero portrait
+  hardik.png            # alt portrait
+  sample_fake.jpg       # demo fallback
+uploads/
+  hardik_pict.png       # hero fallback
+  sample_image.jpg      # demo image
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## To update content
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Edit `src/data.js` — name, links, experience, publications, projects, etc. all live there. Commit, push, GitHub Pages redeploys in ~30 seconds.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+To replace the resume PDF, just overwrite `assets/Hardik_Sharma_Resume.pdf` with the new file (keep the same filename).
