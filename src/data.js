@@ -227,6 +227,54 @@ window.PORTFOLIO_DATA = {
     },
   ],
 
+  sideProjects: [
+    {
+      title: "Generic AI Assistant",
+      kind: "Landing page · 2026",
+      blurb:
+        "Marketing site mockup for a general-purpose AI assistant — header, interactive demo, use cases, tutorials, social proof, and tracker sections.",
+      tags: ["React", "Tailwind", "Babel"],
+      live: "https://generic-ai-assistant-deploy.vercel.app",
+      code: "https://github.com/hardiksharma6555/generic-ai-assistant",
+    },
+    {
+      title: "Deepfake Website",
+      kind: "Multi-page · 2026",
+      blurb:
+        "Multi-page marketing site for a deepfake-detection product — index, agent overview, and pricing pages with hero visualisations and feature sections.",
+      tags: ["React", "Multi-page", "Babel"],
+      live: "https://deepfake-website-deploy.vercel.app",
+      code: "https://github.com/hardiksharma6555/deepfake-website",
+    },
+    {
+      title: "Fake News Detector",
+      kind: "Single page · 2026",
+      blurb:
+        "End-to-end fake-news classifier UI — atomic components, hero claim input, sectional explainer, and animated verdict panel.",
+      tags: ["React", "Tailwind", "Babel"],
+      live: "https://fake-news-detector-deploy.vercel.app",
+      code: "https://github.com/hardiksharma6555/fake-news-detector",
+    },
+    {
+      title: "Person Counter",
+      kind: "Vision UI · 2026",
+      blurb:
+        "Landing page for a vision-based footfall analytics demo — primitives, hero, gallery, demo, verdict, and data sections.",
+      tags: ["React", "Tailwind", "Babel"],
+      live: "https://person-counter-deploy.vercel.app",
+      code: "https://github.com/hardiksharma6555/person-counter",
+    },
+    {
+      title: "Video Generator",
+      kind: "Landing page · 2026",
+      blurb:
+        "Static landing page for a long-form video generation product — hero, feature sections, and a tweakable design panel for layout iteration.",
+      tags: ["React", "Tailwind", "Babel"],
+      live: "https://video-generator-deploy.vercel.app",
+      code: "https://github.com/hardiksharma6555/video-generator",
+    },
+  ],
+
   skills: {
     "Core Areas": ["Computer Vision", "Deep Learning", "Multimodal Learning", "NLP", "LLMs & Agentic AI"],
     "Frameworks": ["PyTorch", "TensorFlow", "OpenCV", "Scikit-learn", "HuggingFace", "Keras", "spaCy", "NLTK"],

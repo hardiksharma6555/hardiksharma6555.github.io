@@ -9,10 +9,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="src/styles.css?v=6" />
+<link rel="stylesheet" href="src/styles.css?v=7" />
 
+<script>
+  // Pre-paint theme bootstrap — avoid a dark flash for users who saved "light".
+  (function () {
+    try {
+      var saved = localStorage.getItem("portfolio-theme");
+      if (saved === "light") {
+        document.documentElement.dataset.bootTheme = "light";
+      }
+    } catch (e) {}
+  })();
+</script>
 <style>
   html, body { margin: 0; padding: 0; background: #0a0a0b; }
+  html[data-boot-theme="light"], html[data-boot-theme="light"] body { background: #f7f5f0; }
   #portfolio-mount { min-height: 100vh; }
 </style>
 </head>
@@ -26,9 +38,9 @@
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
 <!-- Data + components -->
-<script src="src/data.js?v=6"></script>
+<script src="src/data.js?v=7"></script>
 <script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel" src="src/portfolio.jsx?v=6"></script>
+<script type="text/babel" src="src/portfolio.jsx?v=7"></script>
 
 <!-- Tweak defaults (persisted via host) -->
 <script>
@@ -43,9 +55,22 @@
   const { useEffect } = React;
 
   function App() {
-    const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
+    const initialTweaks = (() => {
+      try {
+        const savedTheme = localStorage.getItem("portfolio-theme");
+        if (savedTheme === "dark" || savedTheme === "light") {
+          return { ...window.TWEAK_DEFAULTS, theme: savedTheme };
+        }
+      } catch (e) {}
+      return window.TWEAK_DEFAULTS;
+    })();
+    const [t, setTweak] = useTweaks(initialTweaks);
     const accent = t.accentColor || "#c2f53b";
     const theme = t.theme || "dark";
+    const setTheme = (v) => {
+      try { localStorage.setItem("portfolio-theme", v); } catch (e) {}
+      setTweak("theme", v);
+    };
 
     useEffect(() => {
       const root = document.querySelector(".portfolio-root");
@@ -66,7 +91,7 @@
 
     return (
       <>
-        <Portfolio />
+        <Portfolio theme={theme} setTheme={setTheme} />
         <TweaksPanel title="Tweaks">
           <TweakSection label="Theme">
             <TweakRadio label="Mode" value={theme}

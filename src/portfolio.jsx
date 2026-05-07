@@ -419,12 +419,50 @@ function Projects() {
   );
 }
 
+// ——— Side Projects ———
+function SideProjects() {
+  const items = D.sideProjects || [];
+  if (!items.length) return null;
+  return (
+    <section className="section" id="side-projects" data-screen-label="Side Projects">
+      <div className="section-inner">
+        <SectionHead num="06" title="Side Projects" accentWord="Side Projects" meta={`${items.length} live deployments · Vercel`} />
+        <div className="side-projects">
+          {items.map((p, i) => (
+            <article key={i} className="side-card">
+              <div className="sp-head">
+                <div className="sp-kind"><span className="dot"></span>{p.kind}</div>
+                <span className="sp-num num">S/{String(i+1).padStart(2,"0")}</span>
+              </div>
+              <h3 className="sp-title">{p.title}</h3>
+              <p className="sp-blurb">{p.blurb}</p>
+              {p.tags && (
+                <div className="sp-tags">
+                  {p.tags.map(t => <span key={t} className="sp-tag">{t}</span>)}
+                </div>
+              )}
+              <div className="sp-actions">
+                <a className="sp-btn primary" href={p.live} target="_blank" rel="noopener">
+                  Live <span className="arr">↗</span>
+                </a>
+                <a className="sp-btn" href={p.code} target="_blank" rel="noopener">
+                  Code <span className="arr">↗</span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ——— Skills ———
 function Skills() {
   return (
     <section className="section" id="skills" data-screen-label="Skills">
       <div className="section-inner">
-        <SectionHead num="06" title="Skills" meta="Capabilities matrix" />
+        <SectionHead num="07" title="Skills" meta="Capabilities matrix" />
         <div className="skills">
           {Object.entries(D.skills).map(([cat, items]) => (
             <div key={cat} className="skill-block">
@@ -445,7 +483,7 @@ function Education() {
   return (
     <section className="section" id="education" data-screen-label="Education">
       <div className="section-inner">
-        <SectionHead num="07" title="Education" meta="Academic path" />
+        <SectionHead num="08" title="Education" meta="Academic path" />
         <div className="education">
           {D.education.map((e, i) => (
             <div key={i} className="edu-row">
@@ -472,7 +510,7 @@ function Awards() {
   return (
     <section className="section" id="awards" data-screen-label="Certifications">
       <div className="section-inner">
-        <SectionHead num="07" title="Certifications & Achievements" meta="Credentials" />
+        <SectionHead num="09" title="Certifications & Achievements" meta="Credentials" />
         <div className="awards">
           {D.awards.map((a, i) => (
             <div key={i} className="award-row">
@@ -494,7 +532,7 @@ function Contact() {
     <section className="contact" id="contact" data-screen-label="Contact">
       <div className="contact-inner">
         <div>
-          <SectionHead num="08" title="Contact" meta="Let's talk" />
+          <SectionHead num="10" title="Contact" meta="Let's talk" />
           <h3 className="contact-lede">
             Let's build systems that <span className="stamp"><span className="accent">see clearly</span></span>.
           </h3>
@@ -540,13 +578,38 @@ function Contact() {
 }
 
 // ——— Nav + Footer ———
-function Nav() {
+function ThemeToggle({ theme, setTheme }) {
+  const isDark = theme !== "light";
+  const next = isDark ? "light" : "dark";
+  return (
+    <button
+      className="pf-theme-toggle"
+      onClick={() => setTheme && setTheme(next)}
+      aria-label={`Switch to ${next} mode`}
+      title={`Switch to ${next} mode`}
+    >
+      {isDark ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      )}
+    </button>
+  );
+}
+
+function Nav({ theme, setTheme }) {
   const links = [
     { href: "#about", label: "About" },
     { href: "#demo", label: "Demo" },
     { href: "#experience", label: "Work" },
     { href: "#publications", label: "Publications" },
     { href: "#projects", label: "Projects" },
+    { href: "#side-projects", label: "Side Projects" },
     { href: "#education", label: "Education" },
     { href: "#contact", label: "Contact" },
   ];
@@ -560,9 +623,12 @@ function Nav() {
         <ul>
           {links.map(l => <li key={l.href}><a href={l.href}>{l.label}</a></li>)}
         </ul>
-        <div className="pf-status">
-          <span className="led"></span>
-          <span>OPEN TO COLLABORATION</span>
+        <div className="pf-nav-right">
+          <ThemeToggle theme={theme} setTheme={setTheme} />
+          <div className="pf-status">
+            <span className="led"></span>
+            <span>OPEN TO COLLABORATION</span>
+          </div>
         </div>
       </div>
     </nav>
@@ -579,16 +645,17 @@ function Footer() {
 }
 
 // ——— Root ———
-function Portfolio() {
+function Portfolio({ theme, setTheme }) {
   return (
-    <div className="portfolio-root" data-theme="dark">
-      <Nav />
+    <div className="portfolio-root" data-theme={theme || "dark"}>
+      <Nav theme={theme} setTheme={setTheme} />
       <Hero />
       <About />
       <DeepfakeDemo />
       <Experience />
       <Publications />
       <Projects />
+      <SideProjects />
       <Skills />
       <Education />
       <Awards />
